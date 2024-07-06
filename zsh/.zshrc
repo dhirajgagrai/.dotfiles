@@ -89,6 +89,10 @@ source $ZSH/oh-my-zsh.sh
 
 source <(fzf --zsh)
 
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
 # bun completions
 [ -s "/Users/dhiraj/.bun/_bun" ] && source "/Users/dhiraj/.bun/_bun"
 
@@ -111,4 +115,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"
+
+bindkey -s ^f "tmux-sessionizer\n"
 
