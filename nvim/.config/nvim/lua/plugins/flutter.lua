@@ -6,7 +6,16 @@ return {
 		"nvim-telescope/telescope.nvim",
 	},
 	config = function()
+		require("flutter-tools").setup({
+			lsp = {
+				settings = {
+					lineLength = 100,
+				},
+			},
+		})
+
 		require("telescope").load_extension("flutter")
+
 		vim.keymap.set(
 			"n",
 			"<leader>fc",
