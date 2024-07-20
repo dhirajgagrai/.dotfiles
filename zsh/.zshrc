@@ -122,3 +122,11 @@ alias oldvim="vim"
 
 bindkey -s ^f "tmux-sessionizer\n"
 
+# Note: ensure pnpm is installed
+function flutter-watch(){
+  tmux send-keys "flutter run $1 $2 $3 $4 --pid-file=/tmp/tf1.pid" Enter \;\
+  split-window -v \;\
+  send-keys 'pnpm dlx nodemon -e dart -x "cat /tmp/tf1.pid | xargs kill -s USR1"' Enter \;\
+  resize-pane -y 5 -t 1 \;\
+  select-pane -t 0 \;
+}
