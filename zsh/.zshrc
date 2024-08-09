@@ -130,3 +130,5 @@ function flutter-watch(){
   resize-pane -y 5 -t 1 \;\
   select-pane -t 0 \;
 }
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
