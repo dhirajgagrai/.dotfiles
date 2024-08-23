@@ -132,3 +132,5 @@ function flutter-watch(){
 }
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+alias "gotest"="grc go test -v"
