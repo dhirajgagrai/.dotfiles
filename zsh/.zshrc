@@ -133,4 +133,5 @@ function flutter-watch(){
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# 2EZ4Aliasing
 alias "gotest"="grc go test -v"

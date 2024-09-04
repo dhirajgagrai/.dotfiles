@@ -89,6 +89,15 @@ return { -- LSP Configuration & Plugins
 			end,
 		})
 
+		vim.diagnostic.config({
+			virtual_text = {
+				source = true,
+			},
+			float = {
+				source = true,
+			},
+		})
+
 		-- LSP servers and clients are able to communicate to each other what features they support.
 		--  By default, Neovim doesn't support everything that is in the LSP Specification.
 		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -103,16 +112,6 @@ return { -- LSP Configuration & Plugins
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			pyright = {
-				settings = {
-					python = {
-						analysis = {
-							typeCheckingMode = "off",
-						},
-					},
-				},
-			},
-
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes { ...},
@@ -148,7 +147,6 @@ return { -- LSP Configuration & Plugins
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format lua code
-			"tsserver",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
