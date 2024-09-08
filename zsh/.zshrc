@@ -133,5 +133,8 @@ function flutter-watch(){
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# initialize local::lib to use ~/perl5
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+
 # 2EZ4Aliasing
 alias "gotest"="grc go test -v"
