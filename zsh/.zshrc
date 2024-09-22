@@ -101,7 +101,10 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # flutter
-export PATH=$HOME/SDK/flutter/bin:$PATH
+export PATH="$HOME/SDK/flutter/bin:$PATH"
+
+# go
+export PATH="$HOME/go/bin:$PATH"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

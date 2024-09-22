@@ -12,6 +12,7 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.breakindent = true
 
+vim.o.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
