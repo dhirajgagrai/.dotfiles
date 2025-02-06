@@ -93,6 +93,9 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# android platform-tools
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+
 # bun completions
 [ -s "/Users/dhiraj/.bun/_bun" ] && source "/Users/dhiraj/.bun/_bun"
 
@@ -105,6 +108,9 @@ export PATH="$HOME/SDK/flutter/bin:$PATH"
 
 # go
 export PATH="$HOME/go/bin:$PATH"
+
+# docker
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
