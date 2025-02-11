@@ -10,12 +10,11 @@
 brew install stow
 stow bin
 stow tmux
-stow zsh
 stow grc
-stow tmux
+stow zsh
 ```
 
-## nvim
+## tmux
 
 prefix is set to ctrl + a
 
