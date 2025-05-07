@@ -6,12 +6,19 @@
 
 ## stow
 
+install and stow files:
 ```sh
 brew install stow
+stow .
+```
+
+or stow individually:
+```sh
 stow bin
 stow tmux
 stow grc
 stow zsh
+stow aerospace
 ```
 
 ## tmux
