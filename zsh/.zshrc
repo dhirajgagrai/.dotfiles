@@ -103,9 +103,6 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# flutter
-export PATH="$HOME/SDK/flutter/bin:$PATH"
-
 # go
 export PATH="$HOME/go/bin:$PATH"
 
@@ -131,16 +128,11 @@ alias oldvim="\vim"
 
 bindkey -s ^f "tmux-sessionizer\n"
 
-# Note: ensure pnpm is installed
-function flutter-watch(){
-  tmux send-keys "flutter run $1 $2 $3 $4 --pid-file=/tmp/tf1.pid" Enter \;\
-  split-window -v \;\
-  send-keys 'pnpm dlx nodemon -e dart -x "cat /tmp/tf1.pid | xargs kill -s USR1"' Enter \;\
-  resize-pane -y 5 -t 1 \;\
-  select-pane -t 0 \;
-}
-
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # 2EZ4Aliasing
 alias "gotest"="grc go test -v"
+
+# asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
