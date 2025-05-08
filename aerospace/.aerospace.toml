@@ -184,4 +184,8 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace Notes'
 
 [[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = 'layout floating'
+
+[[on-window-detected]]
     run = 'move-node-to-workspace Other'
