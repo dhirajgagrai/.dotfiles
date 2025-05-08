@@ -136,3 +136,9 @@ alias "gotest"="grc go test -v"
 # asdf
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
+# thanks chatgpt
+ff() {
+  aerospace list-windows --all | fzf --bind 'enter:execute(aerospace focus --window-id {1})+abort'
+}
+zle -N ff
+bindkey '^n' ff
