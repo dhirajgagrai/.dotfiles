@@ -19,6 +19,7 @@ stow tmux
 stow grc
 stow zsh
 stow aerospace
+stow kitty
 ```
 
 ## tmux
