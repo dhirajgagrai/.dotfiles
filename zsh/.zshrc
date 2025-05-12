@@ -97,7 +97,7 @@ fi
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
 # bun completions
-[ -s "/Users/dhiraj/.bun/_bun" ] && source "/Users/dhiraj/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -115,7 +115,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # pnpm
-export PNPM_HOME="/Users/dhiraj/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -143,5 +143,5 @@ ff() {
 zle -N ff
 bindkey '^n' ff
 
-export PATH=$PATH:/Users/dhiraj/.spicetify
+export PATH="$HOME/.spicetify:$PATH"
 
