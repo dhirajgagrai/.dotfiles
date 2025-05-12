@@ -142,3 +142,6 @@ ff() {
 }
 zle -N ff
 bindkey '^n' ff
+
+export PATH=$PATH:/Users/dhiraj/.spicetify
+
