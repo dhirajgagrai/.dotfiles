@@ -42,7 +42,7 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Press 'jj' to go to normal mode
+-- Press 'jj' to exit insert mode
 vim.keymap.set("i", "jj", "<Esc>")
 
 vim.keymap.set("n", "<leader>o", "o<Esc>")
