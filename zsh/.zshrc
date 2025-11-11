@@ -103,9 +103,6 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# go
-export PATH="$HOME/go/bin:$PATH"
-
 # docker
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 
@@ -130,9 +127,6 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# 2EZ4Aliasing
-alias "gotest"="grc go test -v"
-
 # asdf
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
@@ -145,3 +139,12 @@ bindkey '^n' ff
 
 export PATH="$HOME/.spicetify:$PATH"
 
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/Users/dhiraj/.opam/opam-init/init.zsh' ]] || source '/Users/dhiraj/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+
+export PATH=$PATH:/Users/dhiraj/.spicetify
