@@ -117,27 +117,38 @@ automatically-unhide-macos-hidden-apps = false
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
 
-    alt-f = 'fullscreen'
+    alt-shift-f = 'fullscreen'
 
     alt-1 = 'exec-and-forget open -a /Applications/Brave\ Browser.app'
     alt-2 = 'exec-and-forget open -a /Applications/kitty.app/'
-    alt-3 = 'exec-and-forget open -a /Applications/Obsidian.app/'
-    alt-4 = 'exec-and-forget open -a /System/Applications/Preview.app/'
+    alt-3 = 'exec-and-forget open -a /System/Applications/Preview.app/'
+    alt-4 = 'exec-and-forget open -a /Applications/Obsidian.app/'
+    alt-d = 'exec-and-forget open -a /Applications/TickTick.app/'
+    alt-t = 'exec-and-forget open -a /Applications/Microsoft\ Teams.app/'
+    alt-o = 'exec-and-forget open -a /Applications/Microsoft\ Outlook.app/'
+    alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app/'
     alt-s = 'exec-and-forget open -a /Applications/Spotify.app/'
+    alt-e = 'exec-and-forget open -a /Applications/eqMac.app/'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-    cmd-1 = 'workspace Browser'
-    cmd-2 = 'workspace Terminal'
-    cmd-3 = 'workspace Notes'
-    cmd-4 = 'workspace Docs'
-    cmd-5 = 'workspace Other'
+    cmd-1 = 'workspace 1'
+    cmd-2 = 'workspace 2'
+    cmd-3 = 'workspace 3'
+    cmd-4 = 'workspace 4'
+    cmd-5 = 'workspace 5'
+    cmd-6 = 'workspace 6'
+    cmd-7 = 'workspace 7'
+    cmd-8 = 'workspace 8'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    cmd-shift-1 = 'move-node-to-workspace Browser'
-    cmd-shift-2 = 'move-node-to-workspace Terminal'
-    cmd-shift-3 = 'move-node-to-workspace Notes'
-    cmd-shift-4 = 'move-node-to-workspace Docs'
-    cmd-shift-5 = 'move-node-to-workspace Other'
+    cmd-shift-1 = 'move-node-to-workspace 1'
+    cmd-shift-2 = 'move-node-to-workspace 2'
+    cmd-shift-3 = 'move-node-to-workspace 3'
+    cmd-shift-4 = 'move-node-to-workspace 4'
+    cmd-shift-5 = 'move-node-to-workspace 5'
+    cmd-shift-6 = 'move-node-to-workspace 6'
+    cmd-shift-7 = 'move-node-to-workspace 7'
+    cmd-shift-8 = 'move-node-to-workspace 8'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -169,23 +180,32 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.brave.Browser'
-    run = 'move-node-to-workspace Browser'
+    run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
     if.app-id = 'net.kovidgoyal.kitty'
-    run = 'move-node-to-workspace Terminal'
+    run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Preview'
-    run = 'move-node-to-workspace Docs'
+    run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
     if.app-id = 'md.obsidian'
-    run = 'move-node-to-workspace Notes'
+    run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-    if.app-id = 'com.apple.finder'
-    run = ['layout floating', 'move-node-to-workspace Other']
+    if.app-id = 'com.microsoft.teams2'
+    run = 'move-node-to-workspace 6'
 
 [[on-window-detected]]
-    run = 'move-node-to-workspace Other'
+    if.app-id = 'com.microsoft.Outlook'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.TickTick.task.mac'
+    run = 'move-node-to-workspace 8'
+
+[[on-window-detected]]
+    run = ['layout floating', 'move-node-to-workspace 5']
+
