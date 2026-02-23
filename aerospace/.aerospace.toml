@@ -122,7 +122,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-1 = 'exec-and-forget open -a /Applications/Brave\ Browser.app'
     alt-2 = 'exec-and-forget open -a /Applications/kitty.app/'
     alt-3 = 'exec-and-forget open -a /System/Applications/Preview.app/'
-    alt-4 = 'exec-and-forget open -a /Applications/Obsidian.app/'
+    alt-4 = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app/'
     alt-d = 'exec-and-forget open -a /Applications/TickTick.app/'
     alt-t = 'exec-and-forget open -a /Applications/Microsoft\ Teams.app/'
     alt-o = 'exec-and-forget open -a /Applications/Microsoft\ Outlook.app/'
@@ -191,8 +191,8 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-    if.app-id = 'md.obsidian'
-    run = 'move-node-to-workspace 4'
+    if.app-id = 'com.apple.finder'
+    run = ['layout floating', 'move-node-to-workspace 4']
 
 [[on-window-detected]]
     if.app-id = 'com.microsoft.teams2'
