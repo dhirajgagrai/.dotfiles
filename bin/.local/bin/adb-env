@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+#
+# adb-env — detect the attached Android device and export connection vars.
+#
+# Installed at ~/.local/bin/adb-env and invoked through:
+#   alias adb-env='source ~/.local/bin/adb-env'
+#
+# Must be sourced (the alias does that). A child process cannot modify its
+# parent's environment, so running it directly would set nothing.
+#
+# Deliberately does NOT use `set -e`: since this is sourced into your
+# interactive shell, any failure under `set -e` would close your terminal.
+
+# --- palette (only when stderr is a terminal, so pipes stay clean) ---
+if [ -t 2 ]; then
+    _CG=$'\033[38;5;42m'    # green
+    _CR=$'\033[38;5;203m'   # red
+    _CY=$'\033[38;5;220m'   # yellow
+    _CB=$'\033[38;5;39m'    # blue
+    _CD=$'\033[38;5;245m'   # dim grey
+    _CX=$'\033[1m'          # bold
+    _C0=$'\033[0m'          # reset
+else
+    _CG=''; _CR=''; _CY=''; _CB=''; _CD=''; _CX=''; _C0=''
+fi
+
+_W=52                                       # inner width of the box
+_LINE=$(printf '─%.0s' $(seq 1 $_W))        # built once, not per-call
+
+_top()  { printf '%s┌%s┐%s\n' "$_CD" "$_LINE" "$_C0"; }
+_rule() { printf '%s├%s┤%s\n' "$_CD" "$_LINE" "$_C0"; }
+_bot()  { printf '%s└%s┘%s\n' "$_CD" "$_LINE" "$_C0"; }
+
+# _row <label> <value> <value-color>
+_row() {
+    local label="$1" value="$2" color="$3"
+    local pad=$(( _W - 2 - 14 - ${#value} ))
+    if [ $pad -lt 0 ]; then
+        pad=0
+    fi
+    printf '%s│%s %s%-14s%s %s%s%s%*s%s│%s\n' \
+        "$_CD" "$_C0" "$_CD" "$label" "$_C0" \
+        "$color" "$value" "$_C0" "$pad" "" "$_CD" "$_C0"
+}
+
+_err()  { printf '\n %s✗%s  %s%s%s\n\n' "$_CR" "$_C0" "$_CX" "$*" "$_C0" >&2; }
+_warn() { printf ' %s!%s  %s%s%s\n'     "$_CY" "$_C0" "$_CD" "$*" "$_C0" >&2; }
+
+_adb_env_finish() {
+    unset _adb_serials _adb_count _props _model _rel _abi _W _LINE
+    unset -f _top _rule _bot _row _err _warn _adb_env_finish
+    unset _CG _CR _CY _CB _CD _CX _C0
+    return "${1:-0}"
+}
+
+# --- is adb available? ---
+if ! command -v adb >/dev/null 2>&1; then
+    _err "adb not found on PATH"
+    _warn "install android-sdk-platform-tools, or add it to PATH"
+    _adb_env_finish 1
+    return 1 2>/dev/null || exit 1
+fi
+
+# --- find devices in the 'device' state (skips offline/unauthorized) ---
+_adb_serials=$(adb devices 2>/dev/null | awk 'NR>1 && $2=="device" {print $1}')
+
+# Nothing usable? The adb server is often the culprit (stale state, a version
+# mismatch between two adb binaries, or a leftover server holding :5037).
+# Bounce it once and re-check before giving up.
+if [ -z "$_adb_serials" ]; then
+    _warn "no device yet — restarting the adb server and retrying"
+    adb kill-server >/dev/null 2>&1
+    adb start-server >/dev/null 2>&1
+    _adb_serials=$(adb devices 2>/dev/null | awk 'NR>1 && $2=="device" {print $1}')
+fi
+
+if [ -z "$_adb_serials" ]; then
+    _err "no device connected"
+    printf '%s' "$_CD" >&2
+    adb devices 2>&1 | sed 's/^/    /' >&2
+    printf '%s' "$_C0" >&2
+    _warn "showing 'unauthorized'? accept the USB debugging prompt on the device"
+    _warn "still stuck? check for a second adb:  which -a adb"
+    adb kill-server >/dev/null 2>&1
+    _adb_env_finish 1
+    return 1 2>/dev/null || exit 1
+fi
+
+_adb_count=$(printf '%s\n' "$_adb_serials" | wc -l)
+
+if [ "$_adb_count" -gt 1 ]; then
+    _err "$_adb_count devices attached — not guessing which one"
+    printf '%s\n' "$_adb_serials" | sed "s/^/    ${_CY}•${_C0} /" >&2
+    _warn "choose one:  export ANDROID_SERIAL=<serial>"
+    _adb_env_finish 1
+    return 1 2>/dev/null || exit 1
+fi
+
+# --- export ---
+export ANDROID_HOST=localhost
+export ANDROID_SERIAL="$_adb_serials"
+
+# --- device detail: ONE adb round trip, not three (best-effort, never fatal) ---
+_props=$(adb -s "$ANDROID_SERIAL" shell \
+    'getprop ro.product.model; getprop ro.build.version.release; getprop ro.product.cpu.abi' \
+    2>/dev/null | tr -d '\r')
+
+_model=$(printf '%s\n' "$_props" | sed -n '1p')
+_rel=$(printf  '%s\n' "$_props" | sed -n '2p')
+_abi=$(printf  '%s\n' "$_props" | sed -n '3p')
+
+printf '\n'
+printf ' %s%s▲ adb environment%s  %s· linked%s\n' "$_CX" "$_CG" "$_C0" "$_CD" "$_C0"
+_top
+
+if [ -n "$_model" ]; then
+    _row "device" "$_model" "$_CX"
+fi
+if [ -n "$_rel" ]; then
+    _row "android" "$_rel" "$_C0"
+fi
+if [ -n "$_abi" ]; then
+    _row "abi" "$_abi" "$_CD"
+fi
+if [ -n "$_model$_rel$_abi" ]; then
+    _rule
+fi
+
+_row "ANDROID_HOST"   "$ANDROID_HOST"   "$_CB"
+_row "ANDROID_SERIAL" "$ANDROID_SERIAL" "$_CG"
+_bot
+
+_adb_env_finish 0
