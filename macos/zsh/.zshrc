@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell" # set by `omz`
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -123,7 +123,8 @@ alias vim="nvim"
 alias vi="nvim"
 alias oldvim="\vim"
 
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s '^F' 'tmux-sessionizer\n'
+bindkey -s '^N' 'nvim\n'
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -135,7 +136,7 @@ ff() {
   aerospace list-windows --all | fzf --bind 'enter:execute(aerospace focus --window-id {1})+abort'
 }
 zle -N ff
-bindkey '^n' ff
+bindkey '^P' ff
 
 export PATH="$HOME/.spicetify:$PATH"
 
