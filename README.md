@@ -43,8 +43,9 @@ stow -d linux  -t ~ i3 i3status kitty tmux zsh   # linux
 packages used to sit at the repo root, so after pulling the old links point
 nowhere. remove the dangling ones and stow again:
 ```sh
-for l in ~/.* ~/.config/* ~/.local/*; do
-  [ -L "$l" ] && [ ! -e "$l" ] && case "$(readlink "$l")" in *.dotfiles/*) rm -v "$l" ;; esac
+{ find ~ -maxdepth 1 -type l; find ~/.config ~/.local -type l; } 2>/dev/null |
+while read -r l; do
+  [ ! -e "$l" ] && case "$(readlink "$l")" in *.dotfiles/*) rm -v "$l" ;; esac
 done
 ```
 then run the stow commands above.
