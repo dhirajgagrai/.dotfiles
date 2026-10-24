@@ -8,7 +8,8 @@
 
 install and stow files:
 ```sh
-brew install stow
+brew install stow  # macOS
+sudo apt install stow  # linux
 stow .
 ```
 
@@ -20,6 +21,9 @@ stow grc
 stow zsh
 stow aerospace
 stow kitty
+stow nvim
+stow i3        # linux
+stow i3status  # linux
 ```
 
 ## tmux
