@@ -4,7 +4,8 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     selected=$( { find -L ~/ -mindepth 1 -maxdepth 1 -type d; \
-                  find -L ~/hexdev -mindepth 1 -maxdepth 1 -type d 2>/dev/null; } | fzf)
+                  find -L ~/hexdev -mindepth 1 -maxdepth 1 -type d 2>/dev/null; \
+                  find -L ~/Projects -mindepth 1 -maxdepth 1 -type d 2>/dev/null; } | fzf)
 fi
 
 if [[ -z $selected ]]; then
