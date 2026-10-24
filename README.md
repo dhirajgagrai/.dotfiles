@@ -1,7 +1,7 @@
 # .dotfiles
 
 - nvim config based off [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
-- tmux-sessionizer courtsey of [ThePrimeagen](https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer)
+- tmux-sessionizer courtesy of [ThePrimeagen](https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer)
 - relevant - [Stow](https://www.gnu.org/software/stow/)
 
 ## layout
@@ -17,6 +17,11 @@ linux/    i3 i3status kitty tmux zsh
 os specific settings live in their own files instead of conditionals:
 - `~/.config/kitty-os.conf` - included at the end of `kitty.conf` (font size)
 - `~/.tmux.os.conf` - sourced from `.tmux.conf` (copy mode clipboard command)
+- `~/.zshrc` - a separate file per os, nothing shared
+
+to add a setting that differs per os, put it in the `*-os` / `*.os` file under
+both `macos/` and `linux/`. a config that only exists on one os gets its own
+package under that os dir.
 
 ## stow
 
@@ -33,6 +38,24 @@ stow -d macos  -t ~ aerospace kitty tmux zsh     # macos
 stow -d linux  -t ~ i3 i3status kitty tmux zsh   # linux
 ```
 
+### moving from the old layout
+
+packages used to sit at the repo root, so after pulling the old links point
+nowhere. remove the dangling ones and stow again:
+```sh
+for l in ~/.* ~/.config/* ~/.local/*; do
+  [ -L "$l" ] && [ ! -e "$l" ] && case "$(readlink "$l")" in *.dotfiles/*) rm -v "$l" ;; esac
+done
+```
+then run the stow commands above.
+
+## bin
+
+scripts in `common/bin` go to `~/.local/bin`. symlinks that installers drop
+there (`claude`, `bob`, `kitty`, `kitten`) are machine specific and ignored in
+`.gitignore`.
+
 ## tmux
 
-prefix is set to ctrl + a
+- prefix is set to ctrl + a
+- prefix + f opens tmux-sessionizer
