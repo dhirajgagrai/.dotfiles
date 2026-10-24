@@ -1,0 +1,5 @@
+# machine-specific symlinks to locally installed binaries
+bin/.local/bin/bob
+bin/.local/bin/claude
+bin/.local/bin/kitten
+bin/.local/bin/kitty
