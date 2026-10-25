@@ -1,5 +1,8 @@
+common/bin/.local/bin/__pycache__/
+
 # machine-specific symlinks to locally installed binaries
 common/bin/.local/bin/bob
 common/bin/.local/bin/claude
 common/bin/.local/bin/kitten
 common/bin/.local/bin/kitty
+common/bin/.local/bin/ticktick-i3bar
